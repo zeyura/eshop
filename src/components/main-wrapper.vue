@@ -23,11 +23,7 @@
 
 <style lang="scss">
     .main-wrapper {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        max-width: 900px;
+        max-width: 1200px;
         margin: auto;
     }
 </style>
