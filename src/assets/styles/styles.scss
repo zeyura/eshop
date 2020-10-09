@@ -1,0 +1,13 @@
+@import 'variables.scss';
+
+img {
+  max-width: 100%;
+}
+
+.btn {
+     border-radius: $radius;
+     border-color: #eee;
+     border-width: 1px;
+      cursor: pointer;
+     // border-style: solid;
+}

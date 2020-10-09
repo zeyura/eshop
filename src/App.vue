@@ -1,8 +1,23 @@
 <template>
   <div id="app">
-
+    <main-wrapper />
   </div>
 </template>
+
+<script>
+    import mainWrapper from '@/components/main-wrapper'
+
+    export default {
+        name: "app",
+        components: {
+            mainWrapper
+        },
+        data: () => ({
+
+        }),
+
+    }
+</script>
 
 <style lang="scss">
 #app {

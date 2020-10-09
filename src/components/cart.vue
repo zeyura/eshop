@@ -4,7 +4,7 @@
 
 <script>
     export default {
-        name: "v-main-wrapper"
+        name: "cart"
     }
 </script>
 
