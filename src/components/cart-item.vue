@@ -10,7 +10,10 @@
             <p class="cart-item__price">Price: {{cart_item_data.price}}</p>
             <p class="cart-item__article">Art: {{cart_item_data.article}}</p>
         </div>
-        <div class="cart-item__quantity">Qty: {{cart_item_data.quantity}}</div>
+        <div class="cart-item__quantity">
+            <button @click="decrementItem">-</button>
+            {{cart_item_data.quantity ? cart_item_data.quantity : 1}}
+            <button @click="incrementItem">+</button> </div>
         <button class="cart-item__btn btn"
                 @click="deleteFromCart"
         >
@@ -41,9 +44,15 @@
         methods: {
             deleteFromCart() {
                 this.$emit('deleteFromCart')
-            }
-        }
+            },
 
+            incrementItem() {
+                this.$emit('increment');
+            },
+            decrementItem() {
+                this.$emit('decrement');
+            },
+        }
 
     }
 </script>

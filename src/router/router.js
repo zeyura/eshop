@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Catalog from '@/components/catalog'
-import Cart from '@/components/cart'
-
 Vue.use(VueRouter);
 
 const routes = [

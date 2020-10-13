@@ -9,6 +9,7 @@
 
         <h1>Cart</h1>
 
+        <p v-if="!cart_data.length">There are no Products in the cart...</p>
         <div class="cart-items-list">
 
             <cart-item
@@ -16,8 +17,14 @@
                     :key="i"
                     :cart_item_data="item"
                     @deleteFromCart="delFromCart(i)"
+                    @increment="increment(i)"
+                    @decrement="decrement(i)"
             />
 
+        </div>
+
+        <div class="cart__total right" v-if="cart_data.length">
+            Total: <span>{{cartTotal}}</span> RUB
         </div>
 
     </div>
@@ -45,15 +52,35 @@
 
         }),
         computed: {
-
+            cartTotal() {
+                if(this.cart_data.length) {
+                    let res = this.cart_data.reduce((a,b) => {
+                        return a + b.price * b.quantity;
+                    }, 0);
+                    if(res) return res;
+                        else return 0;
+                } else {
+                    return 0;
+                }
+            }
         },
         methods: {
             ...mapActions([
                 'deleteFromCart',
+                'incrementCartItem',
+                'decrementCartItem'
             ]),
+
+            increment(i) {
+                this.incrementCartItem(i);
+            },
+            decrement(i) {
+                this.decrementCartItem(i);
+            },
+
             delFromCart(i) {
                 this.deleteFromCart(i);
-            }
+            },
         }
 
     }
@@ -69,6 +96,7 @@
     .cart-item {
         width: 100%;
         margin-bottom: 20px;
+        padding: 5px 15px 20px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -89,6 +117,17 @@
             opacity: .8;
         }
 
+        &__quantity {
+            cursor: default;
+
+            button {
+                cursor: pointer;
+                margin: 12px;
+                width: 28px;
+                height: 28px;
+            }
+        }
+
         &__btn {
             font-size: 12px;
             height: 25px!important;
@@ -103,6 +142,14 @@
         padding: 15px;
         border: 1px solid #ddd;
         cursor: pointer;
+    }
+
+    .cart__total {
+        font-weight: bold;
+
+        span {
+            font-size: 2rem;
+        }
     }
 
 </style>
