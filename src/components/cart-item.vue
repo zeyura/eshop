@@ -1,0 +1,53 @@
+<template>
+    <div class="cart-item">
+        <div class="cart-item__img img">
+            <a href="">
+                <img :src=" require(`../assets/images/${cart_item_data.image}`) " alt="img">
+            </a>
+        </div>
+        <div class="cart-item__info">
+            <h6 class="cart-item__name">{{cart_item_data.name}}</h6>
+            <p class="cart-item__price">Price: {{cart_item_data.price}}</p>
+            <p class="cart-item__article">Art: {{cart_item_data.article}}</p>
+        </div>
+        <div class="cart-item__quantity">Qty: {{cart_item_data.quantity}}</div>
+        <button class="cart-item__btn btn"
+                @click="deleteFromCart"
+        >
+            Delete
+        </button>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "cart-item",
+        components: {
+        },
+        props: {
+            cart_item_data: {
+                type: Object,
+                default() {
+                    return {}
+                }
+            }
+        },
+        data: () => ({
+
+        }),
+        mounted() {
+            this.$set(this.cart_item_data, 'quantity', 1);
+        },
+        methods: {
+            deleteFromCart() {
+                this.$emit('deleteFromCart')
+            }
+        }
+
+
+    }
+</script>
+
+<style scoped>
+
+</style>

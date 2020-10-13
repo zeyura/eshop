@@ -6,8 +6,12 @@
             </a>
         </div>
         <h4 class="catalog-item__name">{{product.name}}</h4>
-        <p class="catalog-item__price">Price: {{product.price}} руб</p>
-        <button class="catalog-item__btn btn" @click="sendDataToParent">Add to Cart</button>
+        <p class="catalog-item__price">Price: {{product.price}} RUB</p>
+        <button class="catalog-item__btn btn"
+                @click="addToCart"
+        >
+            Add to Cart
+        </button>
     </div>
 </template>
 
@@ -24,9 +28,9 @@
         },
 
         methods: {
-            sendDataToParent() {
+            addToCart() {
                // console.log( this.product.article )
-                this.$emit('sendArticle', this.product.article);
+                this.$emit('addToCart', this.product);
             }
         }
 
@@ -50,7 +54,7 @@
         }
 
         &__name {
-
+            font-size: 1.6rem;
         }
 
         &__price {

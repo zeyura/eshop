@@ -1,6 +1,6 @@
 <template>
     <div class="catalog">
-        <h1>Catala</h1>
+        <h1>Catalog</h1>
 
         <div class="catalog-list">
 
@@ -8,7 +8,7 @@
                 v-for="product in products"
                 :key="product.id"
                 :product="product"
-                @sendArticle="getArticleFromItem"
+                @addToCart="addToCart"
             />
 
         </div>
@@ -32,7 +32,7 @@
             this.getProducts()
                 .then(res => {
                     if(res.data) {
-                        console.log('Data is..');
+                       // console.log('Data is..');
                     }
                 });
             ////////////
@@ -45,10 +45,11 @@
         },
         methods: {
             ...mapActions([
-                'getProducts'
+                'getProducts',
+                'addProductToCart'
             ]),
-            getArticleFromItem(article) {
-                alert(article)
+            addToCart(data) {
+                this.addProductToCart(data);
             }
         }
     }
