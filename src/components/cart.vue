@@ -1,7 +1,13 @@
 <template>
     <div class="cart">
 
-        <h3>Cart</h3>
+        <router-link :to="{name:'catalog'}" >
+            <div class="cart__link_to_catalog">
+                Back to Catalog
+            </div>
+        </router-link>
+
+        <h1>Cart</h1>
 
         <div class="cart-items-list">
 
@@ -88,6 +94,15 @@
             height: 25px!important;
             line-height: 25px!important;
         }
+    }
+
+    .cart__link_to_catalog {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        cursor: pointer;
     }
 
 </style>

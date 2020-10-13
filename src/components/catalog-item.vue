@@ -49,7 +49,7 @@
             max-width: 100%;
 
             img {
-                height: 200px;
+                height: 250px;
             }
         }
 
