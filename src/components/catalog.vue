@@ -9,6 +9,34 @@
         <h1>Catalog</h1>
 
         <div class="row">
+
+            <div class="range-slider-wrap col s12 m8 l9">
+                <div class="range-slider">
+                    <input
+                            type="range"
+                            min="0"
+                            max="1000"
+                            step="10"
+                            v-model.number="minPrice"
+                            @change="setRangeSlider"
+                    >
+                    <input
+                            type="range"
+                            min="0"
+                            max="1000"
+                            step="10"
+                            v-model="maxPrice"
+                            @change="setRangeSlider"
+                    >
+
+                    <div class="range-values">
+                        <p>{{minPrice}}</p>
+                        <p>{{maxPrice}}</p>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="input-field col s9 m4 l3" style="margin-bottom: 2px">
                 <select
                         v-model="filter"
@@ -61,7 +89,10 @@
                 {'name': 'iOS', value: 'ios'},
                 {'name': 'Android', value: 'android'}
             ],
-            sortedProducts: []
+            sortedProducts: [],
+
+            minPrice: 0,
+            maxPrice: 1000
         }),
         watch: {
             filter(categorie) {
@@ -106,10 +137,22 @@
                     if(this.filter === 'all' || item.category === this.filter) {
                         this.sortedProducts.push(item);
                     }
+                });
+                this.sortedProducts = this.sortedProducts.filter(p => {
+                    return p.price >= this.minPrice && p.price <= this.maxPrice;
                 })
             },
             addToCart(data) {
                 this.addProductToCart(data);
+            },
+
+            setRangeSlider() {
+                if(this.minPrice > this.maxPrice) {
+                    let t = this.minPrice;
+                    this.minPrice = this.maxPrice;
+                    this.maxPrice = t;
+                }
+                this.sortByCategories();
             }
         },
 
@@ -142,4 +185,44 @@
     .dropdown-content li>a, .dropdown-content li>span {
         color: #667;
     }
+
+    // Range Slider
+    .range-slider {
+        width: 240px;
+        margin: auto 16px;
+        text-align: center;
+        position: relative;
+        top: 60px;
+
+        svg , input[type=range] {
+            position: absolute;
+            left:0;
+            bottom:0;
+        }
+
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        z-index: 2;
+        position: relative;
+        top: 2px;
+        margin-top: -7px;
+    }
+
+    .range-slider-wrap {
+        height: 70px;
+    }
+
+    .range-values {
+        width: 240px;
+        font-size: 12px;
+        text-align: center;
+        position: absolute;
+        top: -20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    /// -----
+
 </style>
