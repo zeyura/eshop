@@ -40,16 +40,12 @@
 <style lang="scss">
     .catalog-item {
         box-shadow: 0 1px 4px rgba(1,1,1,.22);
-        padding: 2 * $padding;
+        padding: 15px 10px;
         margin: 0 0 20px;
 
         &__img {
             max-width: 100%;
             height: 250px;
-
-            img {
-
-            }
         }
 
         &__name {
@@ -63,5 +59,24 @@
         &__btn {
 
         }
+
+        @media (min-width: 993px) and (max-width: 1200px) {
+            &__img {
+                height: 200px;
+            }
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            &__img {
+                height: 180px;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 767px) {
+            &__img {
+                height: 140px;
+            }
+        }
+
     }
 </style>

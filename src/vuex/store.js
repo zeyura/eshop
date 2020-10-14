@@ -6,11 +6,19 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+      isMobile: true,
+      isDesktop: false,
       products: [],
       cart: []
   },
 
   actions: {
+      setMobile({commit}) {
+          commit('switchMobile');
+      },
+      setDesktop({commit}) {
+          commit('switchDesktop');
+      },
       getProducts({commit}){
           return axios('http://localhost:3000/products', {
               method: "GET"
@@ -42,6 +50,15 @@ export default new Vuex.Store({
   },
 
   mutations: {
+      switchMobile(state) {
+          state.isMobile  = true;
+          state.isDesktop = false;
+      },
+      switchDesktop(state) {
+          state.isMobile  = false;
+          state.isDesktop = true;
+      },
+
       setProductsToState(state,products) {
           state.products = products;
       },
@@ -73,6 +90,12 @@ export default new Vuex.Store({
   },
 
   getters: {
+      isMobile(state) {
+          return state.isMobile;
+      },
+      isDesktop(state) {
+          return state.isDesktop;
+      },
       products(state) {
           return state.products;
       },

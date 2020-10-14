@@ -6,6 +6,7 @@
 
 <script>
     import mainWrapper from '@/components/main-wrapper'
+    import {mapActions, mapGetters} from 'vuex'
 
     export default {
         name: "app",
@@ -15,6 +16,35 @@
         data: () => ({
 
         }),
+
+        computed: {
+            ...mapGetters([
+                'isMobile',
+                'isDesktop'
+            ])
+        },
+        methods: {
+            ...mapActions([
+                'setMobile',
+                'setDesktop'
+            ])
+        },
+        mounted() {
+            if(window.innerWidth > 767) { // set desktop
+                this.setDesktop()
+            } else { // set mobile
+                this.setMobile()
+            }
+
+            let ths = this;
+            window.addEventListener('resize', function () {
+               if(window.innerWidth > 767) {
+                   ths.setDesktop()
+               } else {
+                   ths.setMobile()
+               }
+            });
+        }
 
     }
 </script>

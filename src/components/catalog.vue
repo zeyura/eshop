@@ -1,5 +1,5 @@
 <template>
-    <div class="catalog">
+    <div class="catalog" :class="{'mobile': isMobile, 'desktop': isDesktop}">
         <router-link :to="{name:'cart', params: {cart_data: cart}}" >
             <div class="catalog__link_to_cart">
                 Cart: {{cart.length}}
@@ -10,7 +10,11 @@
 
         <div class="row">
             <div class="input-field col s9 m4 l3" style="margin-bottom: 2px">
-                <select v-model="filter" ref="select" @change="sortByCategories">
+                <select
+                        v-model="filter"
+                        ref="select"
+                        @change="sortByCategories"
+                >
                     <option
                             v-for="cat in categories"
                             :key="cat.value"
@@ -78,6 +82,8 @@
         },
         computed: {
             ...mapGetters([
+                'isDesktop',
+                'isMobile',
                 'products',
                 'cart'
             ]),
