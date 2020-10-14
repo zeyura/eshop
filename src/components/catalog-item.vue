@@ -39,17 +39,16 @@
 
 <style lang="scss">
     .catalog-item {
-        flex-basis: calc(25% - 20px);
-      //  border: 1px solid #eee;
         box-shadow: 0 1px 4px rgba(1,1,1,.22);
         padding: 2 * $padding;
-        margin: $margin;
+        margin: 0 0 20px;
 
         &__img {
             max-width: 100%;
+            height: 250px;
 
             img {
-                height: 250px;
+
             }
         }
 
