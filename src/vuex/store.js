@@ -101,6 +101,9 @@ export default new Vuex.Store({
       },
       cart(state) {
           return state.cart;
-      }
+      },
+      productsInCart(state) {
+          return state.cart.map(p => p.id);
+      },
   }
 })

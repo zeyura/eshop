@@ -14,16 +14,16 @@
                 <div class="range-slider">
                     <input
                             type="range"
-                            min="0"
-                            max="1000"
+                            min="1000"
+                            max="20000"
                             step="10"
                             v-model.number="minPrice"
                             @change="setRangeSlider"
                     >
                     <input
                             type="range"
-                            min="0"
-                            max="1000"
+                            min="1000"
+                            max="20000"
                             step="10"
                             v-model="maxPrice"
                             @change="setRangeSlider"
@@ -63,6 +63,7 @@
             >
                 <catalog-item
                     :product="product"
+                    :inCart="productsInCart.includes(product.id)"
                     @addToCart="addToCart"
                 />
             </div>
@@ -82,6 +83,7 @@
             CatalogItem
         },
         data: () => ({
+            itemKey: 1,
             filter: 'all',
             select: null,
             categories: [
@@ -91,12 +93,15 @@
             ],
             sortedProducts: [],
 
-            minPrice: 0,
-            maxPrice: 1000
+            minPrice: 1000,
+            maxPrice: 20000
         }),
         watch: {
             filter(categorie) {
               //  console.log(categorie)
+            },
+            productsInCart(id) {
+               // this.itemKey = Date.now();
             }
         },
         mounted() {
@@ -107,7 +112,6 @@
                     }
                 });
             ////////////
-
             let select = M.FormSelect.init(this.$refs.select, {});
             M.updateTextFields();
         },
@@ -116,7 +120,8 @@
                 'isDesktop',
                 'isMobile',
                 'products',
-                'cart'
+                'cart',
+                'productsInCart'
             ]),
             displayProducts() {
                 if(this.sortedProducts.length) {
