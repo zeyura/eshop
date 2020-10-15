@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="popup-right">
-                <p class="catalog-item__price">Price: <b>{{product.price}}</b> RUB</p>
+                <p class="catalog-item__price">Price: <b>{{product.price | currency}}</b></p>
                 <p class="catalog-item__categ">OS: {{product.category}}</p>
                 <p class="catalog-item__article">Art: {{product.article}}</p>
                 <p class="catalog-item__count" v-if="product.count > 5">Qnt: {{product.count}}</p>
@@ -29,12 +29,12 @@
         </popup>
 
         <div class="catalog-item__img img">
-            <a href="">
-                <img :src=" require(`../assets/images/${product.image}`) " alt="img">
-            </a>
+                <img :src=" require(`../assets/images/${product.image}`) " alt="img" style="cursor: pointer"
+                     @click="showPopupInfo"
+                >
         </div>
         <h4 class="catalog-item__name">{{product.name}}</h4>
-        <p class="catalog-item__price">Price: {{product.price}} RUB</p>
+        <p class="catalog-item__price">Price: {{product.price | currency}}</p>
 
         <button class="catalog-item-info__btn btn"
             @click="showPopupInfo"

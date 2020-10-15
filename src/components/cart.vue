@@ -24,7 +24,7 @@
         </div>
 
         <div class="cart__total right" v-if="cart_data.length">
-            Total: <span>{{cartTotal}}</span> RUB
+            Total: <span>{{cartTotal | currency}}</span>
         </div>
 
     </div>
