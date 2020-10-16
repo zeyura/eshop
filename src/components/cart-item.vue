@@ -2,7 +2,7 @@
     <div class="cart-item">
         <div class="cart-item__img img">
             <a href="">
-                <img :src=" require(`../assets/images/${cart_item_data.image}`) " alt="img">
+                <img :src=" require(`../assets/images/${cart_item_data.image[0]}.jpg`) " alt="img">
             </a>
         </div>
         <div class="cart-item__info">

@@ -59,5 +59,22 @@
   text-align: center;
   color: #2c3e50;
 }
+///
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.btn {
+  border-radius: $radius - 2px;
+  color: #444;
+}
+
+@media (min-width:1201px) {
+  .btn,.btn-large,.btn-small,.btn-floating,.btn-large,.btn-small,.btn-flat {
+    font-size: 14px;
+  }
+}
 
 </style>

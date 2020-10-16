@@ -12,9 +12,7 @@
 
             <div class="popup-left">
                 <div class="catalog-item__img img">
-                    <a href="">
-                        <img :src=" require(`../assets/images/${product.image}`) " alt="img">
-                    </a>
+                        <img :src=" require(`../assets/images/${product.image[0]}.jpg`) " alt="img">
                 </div>
             </div>
             <div class="popup-right">
@@ -28,8 +26,19 @@
 
         </popup>
 
-        <div class="catalog-item__img img">
-                <img :src=" require(`../assets/images/${product.image}`) " alt="img" style="cursor: pointer"
+        <div
+                class="catalog-item__img img"
+                @mouseenter="showAltImg=true"
+                @mouseleave="showAltImg=false"
+        >
+                <img v-if="!showAltImg"
+                     :src=" require(`../assets/images/${product.image[0]}.jpg`) "
+                     alt="img" style="cursor: pointer"
+                     @click="showPopupInfo"
+                >
+                <img v-else
+                     :src=" require(`../assets/images/${product.image[1]}.jpg`) "
+                     alt="img" style="cursor: pointer"
                      @click="showPopupInfo"
                 >
         </div>
@@ -41,7 +50,13 @@
         >
             Info
         </button>
-        <button v-if="!addedToCart || !inCart"
+
+        <button v-if="product.count === 0"
+                class="catalog-item__btn btn no-goods"
+        >
+            No goods
+        </button>
+        <button v-else-if="!addedToCart || !inCart"
                 class="catalog-item__btn btn"
                 @click="addToCart"
         >
@@ -78,8 +93,8 @@
         },
         data: () => ({
            isPopupInfoVisible: false,
-           addedToCart: false
-
+           addedToCart: false,
+            showAltImg: false
         }),
         computed: {
 
@@ -119,7 +134,11 @@
         }
 
         &__name {
-            font-size: 1.6rem;
+            font-size: 1.2rem;
+            line-height: 1.25;
+            height: 1.4rem;
+            overflow: hidden;
+            margin: 1rem 0;
         }
 
         &__price {
@@ -138,6 +157,12 @@
         }
         .added-cart {
             background-color: #9adeaa;
+            cursor: default;
+            box-shadow: none;
+        }
+        .no-goods {
+            background-color: #e3e5e8;
+            color: #888;
             cursor: default;
             box-shadow: none;
         }

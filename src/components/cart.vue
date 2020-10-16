@@ -104,12 +104,18 @@
 
         &__img {
             img {
-                height: 100px;
+                height: 120px;
             }
+        }
+
+        &__info {
+            flex-basis: 50%;
         }
 
         &__name {
             font-weight: bold;
+            font-size: 1.3rem;
+            opacity: .85;
         }
 
         &__article {
@@ -119,6 +125,7 @@
 
         &__quantity {
             cursor: default;
+            flex-basis: 140px;
 
             button {
                 cursor: pointer;

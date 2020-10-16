@@ -14,16 +14,16 @@
                 <div class="range-slider">
                     <input
                             type="range"
-                            min="1000"
-                            max="20000"
+                            min="150"
+                            max="1350"
                             step="10"
                             v-model.number="minPrice"
                             @change="setRangeSlider"
                     >
                     <input
                             type="range"
-                            min="1000"
-                            max="20000"
+                            min="150"
+                            max="1350"
                             step="10"
                             v-model="maxPrice"
                             @change="setRangeSlider"
@@ -88,13 +88,14 @@
             select: null,
             categories: [
                 {'name': 'All', value: 'all'},
-                {'name': 'iOS', value: 'ios'},
-                {'name': 'Android', value: 'android'}
+                {'name': 'iOS', value: 'iOS'},
+                {'name': 'Android', value: 'Android'},
+                {'name': 'BlackBerry', value: 'BlackBerry'},
             ],
             sortedProducts: [],
 
-            minPrice: 1000,
-            maxPrice: 20000
+            minPrice: 150,
+            maxPrice: 1350
         }),
         watch: {
             filter(categorie) {
