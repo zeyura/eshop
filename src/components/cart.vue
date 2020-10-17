@@ -24,7 +24,7 @@
         </div>
 
         <div class="cart__total right" v-if="cart_data.length">
-            Total: <span>{{cartTotal | currency}}</span>
+            Total: <span>{{cartTotal | dFormat}}</span> $
         </div>
 
     </div>
@@ -55,7 +55,9 @@
             cartTotal() {
                 if(this.cart_data.length) {
                     let res = this.cart_data.reduce((a,b) => {
-                        return a + b.price * b.quantity;
+                        let price = b.price;
+                        if(b.discount) price = Math.ceil(price - price * b.discount / 100);
+                        return a + price * b.quantity;
                     }, 0);
                     if(res) return res;
                         else return 0;

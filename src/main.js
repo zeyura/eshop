@@ -5,6 +5,7 @@ import router from './router/router'
 import store from './vuex/store'
 
 import currencyFilter from './filters/currency.filter'
+import discountFilter from './filters/discount.filter'
 import priceFixFilter from './filters/priceFix.filter'
 import digitFormatFilter from './filters/digitFormat.filter'
 
@@ -14,6 +15,7 @@ import './assets/styles/styles.scss'
 Vue.config.productionTip = false;
 
 Vue.filter('currency', currencyFilter);
+Vue.filter('discount', discountFilter);
 Vue.filter('pricefix', priceFixFilter);
 Vue.filter('dFormat', digitFormatFilter);
 

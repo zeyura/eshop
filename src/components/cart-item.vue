@@ -7,7 +7,10 @@
         </div>
         <div class="cart-item__info">
             <h6 class="cart-item__name">{{cart_item_data.name}}</h6>
-            <p class="cart-item__price">Price: {{cart_item_data.price | currency}}</p>
+
+            <p v-if="cart_item_data.discount" class="cart-item__price" style="color:red">{{cart_item_data.price | discount(cart_item_data.discount) | dFormat}} $</p>
+            <p v-else class="cart-item__price">{{cart_item_data.price | dFormat}} $</p>
+
             <p class="cart-item__article">Art: {{cart_item_data.article}}</p>
         </div>
         <div class="cart-item__quantity">

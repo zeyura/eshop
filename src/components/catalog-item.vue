@@ -12,11 +12,32 @@
 
             <div class="popup-left">
                 <div class="catalog-item__img img">
-                        <img :src=" require(`../assets/images/${product.image[0]}.jpg`) " alt="img">
+                        <img :src=" require(`../assets/images/${product.image[currentImg]}.jpg`) " alt="img">
+
+                    <div class="thumbs">
+                        <div
+                                class="thumbs-wrap"
+                                v-for="index in product.image.length"
+                                @click="showThumb(index - 1)"
+                                @mouseenter="showThumb(index - 1)"
+                        >
+                            <img :src=" require(`../assets/images/${product.image[index - 1]}.jpg`) " alt="img">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="popup-right">
-                <p class="catalog-item__price">Price: <b>{{product.price | currency}}</b></p>
+                <p v-if="product.discount" class="catalog-item__price old-price">
+                    Old price: <b>{{product.price | dFormat}} <span>$</span></b>
+                </p>
+                <p v-if="product.discount" class="catalog-item__price new-price">
+                    <b>{{product.price | discount(product.discount) | dFormat}} <span>$</span></b>
+                </p>
+
+                <p v-if="!product.discount" class="catalog-item__price">
+                    <b>{{product.price | dFormat}} <span>$</span></b>
+                </p>
+
                 <p class="catalog-item__categ">OS: {{product.category}}</p>
                 <p class="catalog-item__article">Art: {{product.article}}</p>
                 <p class="catalog-item__count" v-if="product.count > 5">Qnt: {{product.count}}</p>
@@ -44,7 +65,13 @@
                 >
         </div>
         <h4 class="catalog-item__name">{{product.name}}</h4>
-        <p class="catalog-item__price">Price: {{product.price | currency}}</p>
+
+        <p class="catalog-item__price is-discount" v-if="product.discount">
+            {{product.price | discount(product.discount) | dFormat }} <span>$</span>
+        </p>
+        <p class="catalog-item__price" v-else>
+            {{product.price | dFormat }} <span>$</span>
+        </p>
 
         <button class="catalog-item-info__btn btn"
             @click="showPopupInfo"
@@ -69,6 +96,10 @@
         >
             In Cart...
         </button>
+
+        <div class="catalog-item__discount" v-if="product.discount">
+            -{{product.discount}}%
+        </div>
     </div>
 </template>
 
@@ -94,8 +125,9 @@
             }
         },
         data: () => ({
-           isPopupInfoVisible: false,
-           addedToCart: false,
+            currentImg: 0,
+            isPopupInfoVisible: false,
+            addedToCart: false,
             showAltImg: false
         }),
         computed: {
@@ -105,6 +137,9 @@
 
         },
         methods: {
+            showThumb(i) {
+                this.currentImg = i;
+            },
             gotoCart() {
                 this.$emit('gotoCart');
             },
@@ -115,9 +150,13 @@
             },
             showPopupInfo() {
                 this.isPopupInfoVisible = true;
+
+                document.body.classList.add('fixed');
             },
             hidePopupInfo() {
                 this.isPopupInfoVisible = false;
+
+                document.body.classList.remove('fixed');
             }
         },
         mounted() {
@@ -128,8 +167,13 @@
 </script>
 
 <style lang="scss">
+    .fixed {
+        overflow: hidden;
+    }
+
     .catalog-item {
         box-shadow: 0 1px 4px rgba(1,1,1,.22);
+        position: relative;
         padding: 15px 10px;
         margin: 0 0 20px;
 
@@ -147,6 +191,24 @@
         }
 
         &__price {
+            font-weight: bold;
+            opacity: .9;
+            font-size: 1.4rem;
+
+            &.is-discount {
+                color: red;
+            }
+        }
+
+        &__discount {
+            position: absolute;
+            right: 10px; top: 10px;
+            background-color: #f44336;
+            padding: 1px 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 10px;
         }
 
         &__color {

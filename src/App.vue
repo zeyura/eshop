@@ -71,6 +71,12 @@ img {
   color: #444;
 }
 
+@media (min-width: 480px) and (max-width: 600px) {
+  .row .col.s12 {
+    width: 50%;
+  }
+}
+
 @media (min-width:1201px) {
   .btn,.btn-large,.btn-small,.btn-floating,.btn-large,.btn-small,.btn-flat {
     font-size: 14px;

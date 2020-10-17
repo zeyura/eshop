@@ -2,7 +2,7 @@
     <div class="popup-layout" @click="closePopup">
         <div class="popup" @click.stop="">
             <div class="popup__header">
-                <h5>{{popupTitle}}</h5>
+                <h5 class="popup__title">{{popupTitle}}</h5>
                 <span class="popup-close" @click.stop="closePopup"><i class="material-icons">close</i></span>
             </div>
             <div class="popup__content">
@@ -63,12 +63,13 @@
         background-color: rgba(255,255,255,.9);
         display: flex;
         justify-content: center;
-        align-items: start;
+        align-items: center;
     }
     .popup {
         padding: 15px 30px 30px;
         position: relative;
-        top: 50px;
+        top: 0;
+        margin: 0 7px;
         width: 900px;
         background-color: white;
         border: 1px solid #999;
@@ -81,6 +82,12 @@
             align-items: center;
         }
 
+        &__title {
+            padding-left: 8px;
+            text-align: left;
+            line-height: 1.5;
+        }
+
         &__content {
             display: flex;
             justify-content: start;
@@ -89,12 +96,38 @@
             padding-bottom: 20px;
 
             .img {
-                height: 500px;
-                border: 1px dashed #ddd;
+                height: 250px;
+               // border: 1px dashed #ddd;
+            }
+
+            .popup-left {
+                position: relative;
+            }
+
+            .thumbs {
+                position: absolute;
+                top: 15px;
+                left:0;
+                width: 50px;
+                height: auto;
+
+                &-wrap {
+                    width: 100%;
+                    height: 50px;
+                    margin-bottom: 20px;
+                    opacity: .9;
+                    transition: .1s;
+                    cursor: pointer;
+                    &:hover, &:focus {
+                        opacity: 1;
+                        transform: scale(1.1);
+                    }
+
+                }
             }
 
             .popup-right {
-                padding-left: 30px;
+                padding-left: 5px;
                 text-align: left;
 
                 .warning {
@@ -108,7 +141,23 @@
             .catalog-item__price {
                 font-size: 1.4rem;
                 b {
-                    font-size: 130%;
+                    font-size: 150%;
+                    span {
+                        font-weight: normal;
+                        font-size: 75%;
+                    }
+                }
+
+                &.old-price {
+                    font-size: 80%;
+                    font-weight: normal;
+                    position: relative;
+                    top: 12px;
+                }
+
+                &.new-price {
+                    color: red;
+                    margin-bottom: 30px;
                 }
             }
         }
@@ -154,6 +203,79 @@
                 box-shadow: none;
             }
         }
+
+
+        @media (min-width: 480px) and (max-width: 600px) {
+            .row .col.s12 {
+                width: 50%;
+            }
+        }
+
+        @media (min-width: 601px) and (max-width: 767px) {
+            width: 600px;
+
+            &__content {
+                .img {
+                    height: 300px;
+                }
+                .popup-right {
+                    padding-left: 15px;
+                }
+            }
+
+        }
+
+        @media (min-width: 768px) and (max-width: 992px) {
+            width: 700px;
+
+            &__content {
+                .img {
+                    height: 400px;
+                }
+                .popup-right {
+                    padding-left: 20px;
+                }
+            }
+        }
+
+        @media (min-width: 993px) and (max-width: 1200px) {
+            width: 800px;
+            top: 67px;
+
+            &__content {
+                .img {
+                    height: 450px;
+                }
+                .popup-right {
+                    padding-left: 25px;
+                }
+            }
+        }
+
+        @media (min-width: 1201px) {
+            width: 900px;
+            top: 77px;
+
+            &__content {
+                .img {
+                    height: 500px;
+                }
+                .popup-right {
+                    padding-left: 30px;
+                }
+            }
+
+        }
+
+
+
+    }
+
+    @media (min-width: 993px) {
+        .popup-layout {
+            align-items: start;
+        }
+
     }
 
 </style>
