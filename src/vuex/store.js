@@ -9,10 +9,14 @@ export default new Vuex.Store({
       isMobile: true,
       isDesktop: false,
       products: [],
-      cart: []
+      cart: [],
+      searchValue: ''
   },
 
   actions: {
+      setSearchValue({commit}, value) {
+          commit('setSearchValueToState', value);
+      },
       setMobile({commit}) {
           commit('switchMobile');
       },
@@ -50,6 +54,9 @@ export default new Vuex.Store({
   },
 
   mutations: {
+      setSearchValueToState(state, value) {
+          state.searchValue = value;
+      },
       switchMobile(state) {
           state.isMobile  = true;
           state.isDesktop = false;
@@ -90,6 +97,9 @@ export default new Vuex.Store({
   },
 
   getters: {
+      searchValue(state) {
+          return state.searchValue;
+      },
       isMobile(state) {
           return state.isMobile;
       },

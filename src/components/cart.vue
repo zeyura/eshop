@@ -144,7 +144,7 @@
 
     .cart__link_to_catalog {
         position: absolute;
-        top: 10px;
+        top: 100px;
         right: 10px;
         padding: 15px;
         border: 1px solid #ddd;

@@ -14,16 +14,16 @@
                 <div class="range-slider">
                     <input
                             type="range"
-                            min="150"
-                            max="1350"
+                            :min="startPrice"
+                            :max="endPrice"
                             step="10"
                             v-model.number="minPrice"
                             @change="setRangeSlider"
                     >
                     <input
                             type="range"
-                            min="150"
-                            max="1350"
+                            :min="startPrice"
+                            :max="endPrice"
                             step="10"
                             v-model="maxPrice"
                             @change="setRangeSlider"
@@ -65,6 +65,7 @@
                     :product="product"
                     :inCart="productsInCart.includes(product.id)"
                     @addToCart="addToCart"
+                    @gotoCart="goToCart"
                 />
             </div>
 
@@ -94,6 +95,8 @@
             ],
             sortedProducts: [],
 
+            startPrice: 150,
+            endPrice:   1350,
             minPrice: 150,
             maxPrice: 1350
         }),
@@ -103,18 +106,10 @@
             },
             productsInCart(id) {
                // this.itemKey = Date.now();
+            },
+            searchValue() {
+                this.sortByCategories();
             }
-        },
-        mounted() {
-            this.getProducts()
-                .then(res => {
-                    if(res.data) {
-                        // console.log('Data is..');
-                    }
-                });
-            ////////////
-            let select = M.FormSelect.init(this.$refs.select, {});
-            M.updateTextFields();
         },
         computed: {
             ...mapGetters([
@@ -122,13 +117,18 @@
                 'isMobile',
                 'products',
                 'cart',
-                'productsInCart'
+                'productsInCart',
+                'searchValue'
             ]),
             displayProducts() {
                 if(this.sortedProducts.length) {
                     return this.sortedProducts;
                 } else {
-                    return this.products;
+                    if(!this.searchValue && this.endPrice === this.maxPrice && this.startPrice === this.minPrice) {
+                        return this.products;
+                    } else {
+                        return [];
+                    }
                 }
             }
         },
@@ -139,6 +139,7 @@
             ]),
             sortByCategories() {
                 this.sortedProducts = [];
+
                 this.products.forEach(item => {
                     if(this.filter === 'all' || item.category === this.filter) {
                         this.sortedProducts.push(item);
@@ -146,10 +147,29 @@
                 });
                 this.sortedProducts = this.sortedProducts.filter(p => {
                     return p.price >= this.minPrice && p.price <= this.maxPrice;
-                })
+                });
+                if(this.searchValue) {
+                    let v = this.searchValue.split(' ');
+                    this.sortedProducts = this.sortedProducts.filter(p => {
+                        let res = false;
+                        v.forEach(s => {
+                            if(
+                                p.name.toLowerCase().indexOf(s.trim().toLowerCase()) >= 0
+                                ||
+                                p.price.toString().indexOf(s.trim()) >= 0
+                                ||
+                                p.color.toLowerCase().indexOf(s.trim().toLowerCase()) >= 0
+                            ) res = true;
+                        });
+                        return res;
+                    });
+                }
             },
             addToCart(data) {
                 this.addProductToCart(data);
+            },
+            goToCart() {
+                this.$router.push({name:'cart', params: {cart_data: this.cart}});
             },
 
             setRangeSlider() {
@@ -160,6 +180,21 @@
                 }
                 this.sortByCategories();
             }
+        },
+
+        mounted() {
+            this.getProducts()
+                .then(res => {
+                    if(res.data) {
+                        // console.log('Data is..');
+                        if(this.searchValue) {
+                            this.sortByCategories();
+                        }
+                    }
+                });
+            ////////////
+            let select = M.FormSelect.init(this.$refs.select, {});
+            M.updateTextFields();
         },
 
         destroyed() {
@@ -181,7 +216,7 @@
 
     .catalog__link_to_cart {
         position: absolute;
-        top: 10px;
+        top: 100px;
         right: 10px;
         padding: 15px;
         border: 1px solid #ddd;

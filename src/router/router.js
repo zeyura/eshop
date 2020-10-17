@@ -6,6 +6,12 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: '/',
+        name: 'mainPage',
+        // meta: {layout: 'main', auth: true},
+        component: () => import('../components/main-page.vue')
+    },
+    {
+        path: '/catalog',
         name: 'catalog',
        // meta: {layout: 'main', auth: true},
         component: () => import('../components/catalog.vue')

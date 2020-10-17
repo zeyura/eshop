@@ -22,6 +22,7 @@
                 <p class="catalog-item__count" v-if="product.count > 5">Qnt: {{product.count}}</p>
                 <p class="catalog-item__count warning" v-else-if="product.count > 0">Qnt: {{product.count}}</p>
                 <p class="catalog-item__count error" v-else>Qnt: {{product.count}}</p>
+                <p class="catalog-item__color" :class="product.color"></p>
             </div>
 
         </popup>
@@ -64,6 +65,7 @@
         </button>
         <button v-else
                 class="catalog-item__btn btn added-cart"
+                @click="gotoCart"
         >
             In Cart...
         </button>
@@ -103,6 +105,9 @@
 
         },
         methods: {
+            gotoCart() {
+                this.$emit('gotoCart');
+            },
             addToCart() {
                // console.log( this.product.article )
                 this.$emit('addToCart', this.product);
@@ -142,7 +147,19 @@
         }
 
         &__price {
+        }
 
+        &__color {
+            width: 36px;
+            height:36px;
+            border-radius: 50%;
+
+            &.black {background-color: #333!important;}
+            &.gray  {background-color: #808080 !important;}
+            &.green {background-color: #61bfa9 !important;}
+            &.blue  {background-color: #4e91e4 !important;}
+            &.white {border: 1px solid #ddd;}
+            &.charcoal{background-color: #8498a4 !important;}
         }
 
         &__btn {
@@ -153,12 +170,16 @@
         &-info__btn {
             background-color: transparent!important;
             margin-right: 10px;
-
         }
         .added-cart {
             background-color: #9adeaa;
-            cursor: default;
+            cursor: pointer;
             box-shadow: none;
+            opacity: .85;
+            transition: opacity .2s;
+            &:hover {
+                opacity: 1;
+            }
         }
         .no-goods {
             background-color: #e3e5e8;
@@ -182,6 +203,17 @@
         @media (min-width: 601px) and (max-width: 767px) {
             &__img {
                 height: 140px;
+            }
+            &__btn {
+                margin-right: 3px;
+                margin-left: 3px;
+                padding: 0 8px;
+                font-size: 11px;
+            }
+            &-info__btn {
+                margin-right: 3px;
+                padding: 0 8px;
+                font-size: 11px;
             }
         }
 

@@ -58,5 +58,8 @@
 </script>
 
 <style scoped>
-
+    .cart-item__btn:hover {
+        background-color: #fe0909c2;
+        color: #eee;
+    }
 </style>
