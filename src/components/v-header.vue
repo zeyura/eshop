@@ -10,7 +10,6 @@
                 v-model="searchVal"
                    @keyup.13="search"
                    @keyup.27="clearSearch"
-
             >
             <span class="search__btn" @click="search">
                 <i class="material-icons">search</i>
@@ -40,7 +39,9 @@
 
             clearSearch() {
                 this.searchVal = '';
-               // if(this.$route.path === '/catalog') {}
+                if(this.$route.path === '/catalog') {
+                    this.setSearchValue('');
+                }
             }
 
         }

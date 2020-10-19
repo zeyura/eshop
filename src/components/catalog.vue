@@ -2,7 +2,7 @@
     <div class="catalog" :class="{'mobile': isMobile, 'desktop': isDesktop}">
         <router-link :to="{name:'cart', params: {cart_data: cart}}" >
             <div class="catalog__link_to_cart">
-                Cart: {{cart.length}}
+                <span>{{cart.length}}</span>
             </div>
         </router-link>
 
@@ -185,7 +185,7 @@
         mounted() {
             this.getProducts()
                 .then(res => {
-                    if(res.data) {
+                    if(0 && res.data) { // off
                         // console.log('Data is..');
                         if(this.searchValue) {
                             this.sortByCategories();
@@ -215,12 +215,32 @@
     }
 
     .catalog__link_to_cart {
+        width: 60px;
+        height:60px;
         position: absolute;
         top: 100px;
         right: 10px;
         padding: 15px;
-        border: 1px solid #ddd;
         cursor: pointer;
+        background: url("../assets/images/cart.png") 3px center no-repeat;
+        opacity: .8;
+        &:hover {
+            opacity: 1;
+        }
+
+        span {
+            width: 22px;
+            height:22px;
+            line-height: 22px;
+            padding:0;
+            border-radius: 50%;
+            display: inline-block;
+            background-color: black;
+            color: white;
+            position: relative;
+            top: -12px;
+            font-size: 12px;
+        }
     }
 
     .dropdown-content li>a, .dropdown-content li>span {

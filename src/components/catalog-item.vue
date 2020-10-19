@@ -100,6 +100,8 @@
         <div class="catalog-item__discount" v-if="product.discount">
             -{{product.discount}}%
         </div>
+
+        <div class="catalog-item__ends" v-if="product.count > 0 && product.count < 5">Ends</div>
     </div>
 </template>
 
@@ -209,6 +211,17 @@
             font-weight: bold;
             font-size: 14px;
             border-radius: 10px;
+        }
+
+        &__ends {
+            position: absolute;
+            left: 10px; top: 10px;
+            background-color: orange;
+            padding: 1px 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 4px;
         }
 
         &__color {

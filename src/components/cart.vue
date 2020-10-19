@@ -3,7 +3,7 @@
 
         <router-link :to="{name:'catalog'}" >
             <div class="cart__link_to_catalog">
-                Back to Catalog
+                <i class="material-icons">arrow_back</i> Back
             </div>
         </router-link>
 
@@ -151,6 +151,11 @@
         padding: 15px;
         border: 1px solid #ddd;
         cursor: pointer;
+        color: black;
+
+        i {
+            vertical-align: bottom;
+        }
     }
 
     .cart__total {
